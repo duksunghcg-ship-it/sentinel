@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-run_sentinel.py v0.1 (2026-09-07) — GitHub Actions용 실행기
+run_sentinel.py v0.2 (2026-09-07) — 비정량 신호를 latest.json에 포함 — GitHub Actions용 실행기
   1) sentinel_compute.py(v1.4, 판정 로직 무변경)를 임포트해 실행한다
   2) state/latest.json 을 갱신하고 state/history.csv 에 그날 판정을 추가한다(추가 전용)
   3) state/nonquant.json(사람이 갱신하는 비정량 5신호)과 합쳐 잠정 카운트·단계를 낸다
@@ -126,7 +126,7 @@ def main():
         as_of=today, engine_version=out["engine"], since_used=since,
         count=count, denominator=8, denominator_live=live, stage=stage_of(count),
         stage_note=(f"S8 [변화] 만료 {chg['expires']} — 신규 이탈 없으면 카운트 1 감소" if chg.get("expires") else ""),
-        quant_active=q, nonquant_as_of=nonq.get("as_of"), signals=signals,
+        quant_active=q, nonquant_as_of=nonq.get("as_of"), nonquant=nonq.get("signals", {}), signals=signals,
         fetch_log=out["fetch_log"], primary_ok=out["primary_ok"], degraded=out["degraded"],
         pending=nonq.get("pending", []),
     )
