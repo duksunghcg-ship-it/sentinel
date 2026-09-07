@@ -1,0 +1,17 @@
+{
+  "_설명": "비정량 5신호의 현행 판정. 월간 결정 세션 또는 주간 브리핑 확인 후 사람이 PR로 갱신한다. state = active | inactive | carry | manual_missing. 값은 2026-09-06 상태카드 기준.",
+  "as_of": "2026-09-06",
+  "signals": {
+    "S1": {"state": "active", "value": 41.41, "as_of": "2026-09-04", "source": "multpl.com", "note": "CAPE >80%ile"},
+    "S2": {"state": "active", "value": 237.4, "as_of": "2026-09-05", "source": "GuruFocus", "note": "US Buffett >150%. KR 수동 미입력"},
+    "S3": {"state": "active", "value": 1.42, "as_of": "2026-07", "source": "FINRA", "note": "Margin Debt 1.42조 USD, 장기평균 +1σ 초과"},
+    "S5": {"state": "active", "value": 106, "as_of": "2026-09-04", "source": "Renaissance", "note": "YTD IPO 건수, 분기 상위 20%"},
+    "S6": {"state": "carry", "value": null, "as_of": "2026-07-15", "source": "CBOE", "note": "일간로그 결번, 직전확정(비활성) 승계 — 카운트 미산입"}
+  },
+  "pending": [
+    {"item": "S6 풋콜비율 취득 경로 재설계 또는 제외", "since": "2026-07-15", "owner": "MS"},
+    {"item": "S2-KR 자동 계산 또는 제외", "since": "2026-07-01", "owner": "MS"},
+    {"item": "임계표 v3 승인대기 해소", "since": "2026-08-30", "owner": "MS"},
+    {"item": "S8 [변화] 분기 카운트 산입 여부", "since": "2026-09-07", "owner": "MS"}
+  ]
+}
