@@ -12,7 +12,49 @@
     "S7": true,
     "S8": true
   },
-  "nonquant_as_of": "2026-09-06",
+  "nonquant_as_of": "2026-09-07",
+  "nonquant": {
+    "S1": {
+      "state": "active",
+      "value": 41.41,
+      "as_of": "2026-09-04",
+      "source": "multpl.com",
+      "note": "CAPE >80%ile",
+      "threshold": "CAPE 역사 백분위 >80%ile (현 41.41은 약 97%ile)"
+    },
+    "S2": {
+      "state": "active",
+      "value": 237.4,
+      "as_of": "2026-09-05",
+      "source": "GuruFocus",
+      "note": "US Buffett >150%. KR 수동 미입력",
+      "threshold": "US >150% (KR >120%, 수동 미입력)"
+    },
+    "S3": {
+      "state": "active",
+      "value": 1.42,
+      "as_of": "2026-07",
+      "source": "FINRA",
+      "note": "Margin Debt 1.42조 USD, 장기평균 +1σ 초과",
+      "threshold": "Margin Debt 장기평균 +1σ 초과"
+    },
+    "S5": {
+      "state": "active",
+      "value": 106,
+      "as_of": "2026-09-04",
+      "source": "Renaissance",
+      "note": "YTD IPO 건수, 분기 상위 20%",
+      "threshold": "분기 IPO+SPAC 건수 역사 상위 20%"
+    },
+    "S6": {
+      "state": "carry",
+      "value": null,
+      "as_of": "2026-07-15",
+      "source": "CBOE",
+      "note": "일간로그 결번, 직전확정(비활성) 승계 — 카운트 미산입",
+      "threshold": "20일 평균 <0.74 (결번 시 직전확정 승계, 카운트 미산입)"
+    }
+  },
   "signals": {
     "S4_VIX_LOW": {
       "value": 14.53,
@@ -85,6 +127,11 @@
   "degraded": [],
   "pending": [
     {
+      "item": "MS 3분기 정기 결정 세션 미개최",
+      "since": "2026-08-16",
+      "owner": "MS"
+    },
+    {
       "item": "S6 풋콜비율 취득 경로 재설계 또는 제외",
       "since": "2026-07-15",
       "owner": "MS"
@@ -102,6 +149,11 @@
     {
       "item": "S8 [변화] 분기 카운트 산입 여부",
       "since": "2026-09-07",
+      "owner": "MS"
+    },
+    {
+      "item": "EconCalendar 9월 월간 갱신",
+      "since": "2026-09-01",
       "owner": "MS"
     }
   ]
