@@ -1,0 +1,108 @@
+{
+  "as_of": "2026-09-07",
+  "engine_version": "v1.4",
+  "since_used": "2026-06-09",
+  "count": 7,
+  "denominator": 8,
+  "denominator_live": 7,
+  "stage": "폭락 임박",
+  "stage_note": "S8 [변화] 만료 2026-09-18 — 신규 이탈 없으면 카운트 1 감소",
+  "quant_active": {
+    "S4": true,
+    "S7": true,
+    "S8": true
+  },
+  "nonquant_as_of": "2026-09-06",
+  "signals": {
+    "S4_VIX_LOW": {
+      "value": 14.53,
+      "as_of": "2026-09-04",
+      "cut_on": 15.036,
+      "cut_off": 15.74,
+      "state": "active",
+      "since": "2026-08-13",
+      "headroom_pct": 8.3,
+      "tier": "1차",
+      "source": "CBOE VIX_History"
+    },
+    "S4_VIX_HIGH": {
+      "value": 14.53,
+      "as_of": "2026-09-04",
+      "cut_on": 23.534,
+      "cut_off": 19.854,
+      "state": "inactive",
+      "since": "2026-04-10",
+      "headroom_pct": 62.0,
+      "tier": "1차",
+      "source": "CBOE VIX_History"
+    },
+    "S7_HY_OAS": {
+      "value": 2.65,
+      "as_of": "2026-09-03",
+      "cut_on": 2.7,
+      "cut_off": 2.78,
+      "state": "active",
+      "since": "2026-08-27",
+      "headroom_pct": 4.9,
+      "tier": "1차",
+      "source": "FRED API"
+    },
+    "S8_DXY_LVL": {
+      "value": 118.7479,
+      "as_of": "2026-08-28",
+      "cut_on": 126.621,
+      "cut_off": 123.7763,
+      "state": "inactive",
+      "since": "2025-04-15",
+      "headroom_pct": 6.6,
+      "tier": "1차",
+      "source": "Fed H.10 JRXWTFB_N.B"
+    },
+    "S8_DXY_CHG": {
+      "state": "active",
+      "events": [
+        {
+          "date": "2026-08-19",
+          "ret_pct": -0.547,
+          "z": -2.19,
+          "expires": "2026-09-18",
+          "valid": true
+        }
+      ],
+      "expires": "2026-09-18"
+    }
+  },
+  "fetch_log": [
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-04",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-03",
+    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-08-28"
+  ],
+  "primary_ok": {
+    "VIXCLS": true,
+    "BAMLH0A0HYM2": true,
+    "DTWEXBGS": true
+  },
+  "degraded": [],
+  "pending": [
+    {
+      "item": "S6 풋콜비율 취득 경로 재설계 또는 제외",
+      "since": "2026-07-15",
+      "owner": "MS"
+    },
+    {
+      "item": "S2-KR 자동 계산 또는 제외",
+      "since": "2026-07-01",
+      "owner": "MS"
+    },
+    {
+      "item": "임계표 v3 승인대기 해소",
+      "since": "2026-08-30",
+      "owner": "MS"
+    },
+    {
+      "item": "S8 [변화] 분기 카운트 산입 여부",
+      "since": "2026-09-07",
+      "owner": "MS"
+    }
+  ]
+}
