@@ -1,0 +1,53 @@
+name: sentinel-daily
+on:
+  schedule:
+    - cron: '30 20 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: sentinel
+  cancel-in-progress: false
+jobs:
+  compute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      TZ: Asia/Seoul
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 픽스처 회귀 (실패 시 중단)
+        working-directory: engine
+        run: python sentinel_fixture.py
+      - name: 엔진 실행 → state 갱신 → 알림 판정
+        id: run
+        run: python engine/run_sentinel.py --out state --cache cache
+      - name: 상태·캐시 커밋
+        run: |
+          git config user.name  sentinel-bot
+          git config user.email sentinel-bot@users.noreply.github.com
+          git add state cache
+          git diff --cached --quiet || git commit -m "sentinel: $(date +%F) 산출"
+          git push
+      - name: 공개 Gist 미러
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
+          GIST_ID: ${{ vars.GIST_ID }}
+        run: python engine/mirror_gist.py state/latest.json state/history.csv
+      - name: 변동 이슈 생성
+        if: ${{ steps.run.outputs.alert_title != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --title "${{ steps.run.outputs.alert_title }}" --body "${{ steps.run.outputs.alert_body }}" --label sentinel || \
+          gh issue create --title "${{ steps.run.outputs.alert_title }}" --body "${{ steps.run.outputs.alert_body }}"
+      - name: 실행 실패 이슈
+        if: ${{ failure() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "[SENTINEL] $(date +%F) 자동 산출 실패" --body "픽스처 또는 엔진이 실패함. Actions 로그 확인 필요. 판정은 직전 상태를 승계함."
