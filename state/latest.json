@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-13",
+  "as_of": "2026-09-14",
   "engine_version": "v1.4",
   "since_used": "2026-09-12",
   "count": 6,
@@ -92,8 +92,8 @@
     "S8_DXY_LVL": {
       "value": 118.0732,
       "as_of": "2026-09-04",
-      "cut_on": 126.6186,
-      "cut_off": 123.7762,
+      "cut_on": 126.621,
+      "cut_off": 123.7763,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 7.2,
