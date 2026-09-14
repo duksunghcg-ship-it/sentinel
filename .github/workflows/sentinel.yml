@@ -27,11 +27,20 @@ jobs:
       - name: 엔진 실행 → state 갱신 → 알림 판정
         id: run
         run: python engine/run_sentinel.py --out state --cache cache
+      - name: 예측 수집·채점 (실패해도 판정 산출을 막지 않음)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FORECAST_ISSUE: ${{ vars.FORECAST_ISSUE }}
+        run: |
+          python engine/forecast_ingest.py --out forecast --issue "${FORECAST_ISSUE:-0}"
+          python engine/forecast_score.py --forecast forecast
+
       - name: 상태·캐시 커밋
         run: |
           git config user.name  sentinel-bot
           git config user.email sentinel-bot@users.noreply.github.com
-          git add state cache
+          git add state cache forecast
           git diff --cached --quiet || git commit -m "sentinel: $(date +%F) 산출"
           git push
       - name: 공개 Gist 미러
