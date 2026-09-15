@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-14",
+  "as_of": "2026-09-15",
   "engine_version": "v1.4",
   "since_used": "2026-09-12",
   "count": 6,
@@ -57,46 +57,46 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 15.84,
-      "as_of": "2026-09-11",
-      "cut_on": 15.142,
-      "cut_off": 15.772,
+      "value": 17.1,
+      "as_of": "2026-09-14",
+      "cut_on": 15.144,
+      "cut_off": 15.774,
       "state": "inactive",
       "since": "2026-09-12",
-      "headroom_pct": 4.4,
+      "headroom_pct": 11.4,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 15.84,
-      "as_of": "2026-09-11",
-      "cut_on": 23.534,
-      "cut_off": 19.854,
+      "value": 17.1,
+      "as_of": "2026-09-14",
+      "cut_on": 23.528,
+      "cut_off": 19.848,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 48.6,
+      "headroom_pct": 37.6,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 2.7,
-      "as_of": "2026-09-10",
+      "value": 2.65,
+      "as_of": "2026-09-11",
       "cut_on": 2.7,
-      "cut_off": 2.77,
+      "cut_off": 2.766,
       "state": "active",
       "since": "2026-08-27",
-      "headroom_pct": 2.6,
+      "headroom_pct": 4.4,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 118.0732,
-      "as_of": "2026-09-04",
-      "cut_on": 126.621,
-      "cut_off": 123.7763,
+      "value": 118.2126,
+      "as_of": "2026-09-11",
+      "cut_on": 126.6139,
+      "cut_off": 123.7633,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 7.2,
+      "headroom_pct": 7.1,
       "tier": "1차",
       "source": "Fed H.10 JRXWTFB_N.B"
     },
@@ -115,9 +115,9 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-11",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-10",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-04"
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-14",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-11",
+    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-11"
   ],
   "primary_ok": {
     "VIXCLS": true,
