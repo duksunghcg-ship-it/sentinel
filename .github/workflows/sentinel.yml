@@ -33,6 +33,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           FORECAST_ISSUE: ${{ vars.FORECAST_ISSUE }}
         run: |
+          if [ ! -f engine/forecast_ingest.py ] || [ ! -f engine/forecast_score.py ]; then
+            echo "::warning::engine/forecast_ingest.py 또는 engine/forecast_score.py 가 없어 채점을 건너뜀. 파일 위치를 확인할 것"
+            exit 0
+          fi
+          mkdir -p forecast
           python engine/forecast_ingest.py --out forecast --issue "${FORECAST_ISSUE:-0}"
           python engine/forecast_score.py --forecast forecast
 
@@ -40,8 +45,10 @@ jobs:
         run: |
           git config user.name  sentinel-bot
           git config user.email sentinel-bot@users.noreply.github.com
-          git add state cache forecast
+          git add state cache
+          [ -d forecast ] && git add forecast
           git diff --cached --quiet || git commit -m "sentinel: $(date +%F) 산출"
+          git pull --rebase --autostash origin main || true
           git push
       - name: 공개 Gist 미러
         env:
