@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-17",
+  "as_of": "2026-09-18",
   "engine_version": "v1.4",
   "since_used": "2026-09-12",
   "count": 6,
@@ -57,43 +57,43 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 17.2,
-      "as_of": "2026-09-15",
+      "value": 17.71,
+      "as_of": "2026-09-16",
       "cut_on": 15.142,
-      "cut_off": 15.782,
+      "cut_off": 15.794,
       "state": "inactive",
       "since": "2026-09-12",
-      "headroom_pct": 12.0,
+      "headroom_pct": 14.5,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 17.2,
-      "as_of": "2026-09-15",
+      "value": 17.71,
+      "as_of": "2026-09-16",
       "cut_on": 23.534,
       "cut_off": 19.854,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 36.8,
+      "headroom_pct": 32.9,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 2.76,
-      "as_of": "2026-09-15",
+      "value": 2.7,
+      "as_of": "2026-09-16",
       "cut_on": 2.7,
       "cut_off": 2.76,
       "state": "active",
       "since": "2026-08-27",
-      "headroom_pct": 0.0,
+      "headroom_pct": 2.2,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
       "value": 118.2126,
       "as_of": "2026-09-11",
-      "cut_on": 126.6139,
-      "cut_off": 123.7633,
+      "cut_on": 126.6163,
+      "cut_off": 123.776,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 7.1,
@@ -115,8 +115,8 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-15",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-15",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-16",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-16",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-11"
   ],
   "primary_ok": {
