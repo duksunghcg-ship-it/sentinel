@@ -83,3 +83,9 @@ date,signal,value,as_of,cut_on,cut_off,state,tier
 2026-09-19,S8_DXY_LVL,118.2126,2026-09-11,126.6186,123.7762,inactive,1차
 2026-09-19,S8_DXY_CHG,0,,,,inactive,
 2026-09-19,COUNT,5,,,,거품 후기,live=7
+2026-09-20,S4_VIX_LOW,14.81,2026-09-18,15.126,15.794,inactive,1차
+2026-09-20,S4_VIX_HIGH,14.81,2026-09-18,23.534,19.854,inactive,1차
+2026-09-20,S7_HY_OAS,2.7,2026-09-17,2.7,2.76,active,1차
+2026-09-20,S8_DXY_LVL,118.2126,2026-09-11,126.621,123.7763,inactive,1차
+2026-09-20,S8_DXY_CHG,0,,,,inactive,
+2026-09-20,COUNT,5,,,,거품 후기,live=7
