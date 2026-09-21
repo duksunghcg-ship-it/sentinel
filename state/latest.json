@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-09-21",
+  "as_of": "2026-09-22",
   "engine_version": "v1.4",
   "since_used": "2026-09-12",
-  "count": 5,
+  "count": 6,
   "denominator": 8,
   "denominator_live": 7,
   "stage": "거품 후기",
-  "stage_note": "",
+  "stage_note": "S8 [변화] 만료 2026-10-14 — 신규 이탈 없으면 카운트 1 감소",
   "quant_active": {
     "S4": false,
     "S7": true,
-    "S8": false
+    "S8": true
   },
   "nonquant_as_of": "2026-09-07",
   "nonquant": {
@@ -79,37 +79,45 @@
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 2.7,
-      "as_of": "2026-09-17",
-      "cut_on": 2.7,
+      "value": 2.68,
+      "as_of": "2026-09-18",
+      "cut_on": 2.693,
       "cut_off": 2.76,
       "state": "active",
       "since": "2026-08-27",
-      "headroom_pct": 2.2,
+      "headroom_pct": 3.0,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 118.2126,
-      "as_of": "2026-09-11",
-      "cut_on": 126.6233,
-      "cut_off": 123.7765,
+      "value": 119.5133,
+      "as_of": "2026-09-18",
+      "cut_on": 126.6139,
+      "cut_off": 123.7633,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 7.1,
+      "headroom_pct": 5.9,
       "tier": "1차",
       "source": "Fed H.10 JRXWTFB_N.B"
     },
     "S8_DXY_CHG": {
-      "state": "inactive",
-      "events": [],
-      "expires": null
+      "state": "active",
+      "events": [
+        {
+          "date": "2026-09-14",
+          "ret_pct": 0.406,
+          "z": 2.47,
+          "expires": "2026-10-14",
+          "valid": true
+        }
+      ],
+      "expires": "2026-10-14"
     }
   },
   "fetch_log": [
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-18",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-17",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-11"
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-18",
+    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-18"
   ],
   "primary_ok": {
     "VIXCLS": true,
