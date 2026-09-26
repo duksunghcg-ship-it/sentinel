@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-26",
+  "as_of": "2026-09-27",
   "engine_version": "v1.4",
   "since_used": "2026-09-22",
   "count": 7,
@@ -57,24 +57,24 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 15.67,
-      "as_of": "2026-09-24",
-      "cut_on": 14.998,
+      "value": 14.87,
+      "as_of": "2026-09-25",
+      "cut_on": 14.938,
       "cut_off": 15.746,
       "state": "active",
       "since": "2026-09-23",
-      "headroom_pct": 0.5,
+      "headroom_pct": 5.9,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 15.67,
-      "as_of": "2026-09-24",
+      "value": 14.87,
+      "as_of": "2026-09-25",
       "cut_on": 23.534,
       "cut_off": 19.854,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 50.2,
+      "headroom_pct": 58.3,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
@@ -92,8 +92,8 @@
     "S8_DXY_LVL": {
       "value": 119.5133,
       "as_of": "2026-09-18",
-      "cut_on": 126.6186,
-      "cut_off": 123.7762,
+      "cut_on": 126.621,
+      "cut_off": 123.7763,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 5.9,
@@ -115,7 +115,7 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-24",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-25",
     "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-24",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-18"
   ],
