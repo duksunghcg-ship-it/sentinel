@@ -1,15 +1,15 @@
 {
-  "as_of": "2026-09-28",
+  "as_of": "2026-09-29",
   "engine_version": "v1.4",
   "since_used": "2026-09-22",
-  "count": 7,
+  "count": 6,
   "denominator": 8,
   "denominator_live": 7,
-  "stage": "폭락 임박",
-  "stage_note": "S8 [변화] 만료 2026-10-14 — 신규 이탈 없으면 카운트 1 감소",
+  "stage": "거품 후기",
+  "stage_note": "S8 [변화] 만료 2026-10-23 — 신규 이탈 없으면 카운트 1 감소",
   "quant_active": {
     "S4": true,
-    "S7": true,
+    "S7": false,
     "S8": true
   },
   "nonquant_as_of": "2026-09-07",
@@ -79,26 +79,26 @@
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 2.8,
-      "as_of": "2026-09-24",
+      "value": 2.93,
+      "as_of": "2026-09-25",
       "cut_on": 2.69,
       "cut_off": 2.76,
-      "state": "active",
-      "since": "2026-08-27",
-      "headroom_pct": 1.4,
+      "state": "inactive",
+      "since": "2026-09-29",
+      "headroom_pct": 8.2,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 119.5133,
-      "as_of": "2026-09-18",
-      "cut_on": 126.6233,
-      "cut_off": 123.7765,
+      "value": 120.33,
+      "as_of": "2026-09-25",
+      "cut_on": 126.6139,
+      "cut_off": 123.7633,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 5.9,
+      "headroom_pct": 5.2,
       "tier": "1차",
-      "source": "Fed H.10 JRXWTFB_N.B"
+      "source": "FRED API"
     },
     "S8_DXY_CHG": {
       "state": "active",
@@ -109,15 +109,23 @@
           "z": 2.47,
           "expires": "2026-10-14",
           "valid": true
+        },
+        {
+          "date": "2026-09-23",
+          "ret_pct": 0.438,
+          "z": 2.12,
+          "expires": "2026-10-23",
+          "valid": true
         }
       ],
-      "expires": "2026-10-14"
+      "expires": "2026-10-23"
     }
   },
   "fetch_log": [
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-25",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-24",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-18"
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-25",
+    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
+    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-09-25"
   ],
   "primary_ok": {
     "VIXCLS": true,
