@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-FIXTURE_VERSION = "v1.0"
-FIXTURE_UPDATED = "2026-08-30"
+FIXTURE_VERSION = "v1.1"
+FIXTURE_UPDATED = "2026-09-28"
 """
 sentinel_fixture.py — sentinel_compute.py 판정 로직 회귀 픽스처
 ================================================================
@@ -62,13 +62,17 @@ def t1_constants():
         "S4_VIX_HIGH": dict(series="VIXCLS",       window_y=1, direction="high", p_on=90, p_off=80, k_on=2, k_off=2),
         "S7_HY_OAS":   dict(series="BAMLH0A0HYM2", window_y=3, direction="low",  p_on=10, p_off=20, k_on=2, k_off=2),
         "S8_DXY_LVL":  dict(series="DTWEXBGS",     window_y=3, direction="high", p_on=90, p_off=80, k_on=2, k_off=2),
+        "S6_PC_LOW":   dict(series="CBOE_TOTALPC_MA20", window_y=3, direction="low", p_on=5, p_off=10, k_on=2, k_off=2,
+                            max_stale_days=14),
     }
     check("T1 SIGNALS 신호 집합", sorted(E.SIGNALS.keys()), sorted(want.keys()),
           "신호 추가·제거는 SSOT 정식 개정 사항")
     for k, v in want.items():
         check(f"T1 SIGNALS[{k}]", E.SIGNALS.get(k), v)
     check("T1 Z_SIGMA_WINDOW", E.Z_SIGMA_WINDOW, 30)
-    check("T1 Z_THRESHOLD", E.Z_THRESHOLD, 2.0)
+    check("T1 Z_THRESHOLD", E.Z_THRESHOLD, 3.0, "v1.5 강화(종전 2.0)")
+    check("T1 Z_MIN_ABS_RET", E.Z_MIN_ABS_RET, 0.0075, "v1.5 신설")
+    check("T1 PC_MA_WINDOW", E.PC_MA_WINDOW, 20)
     check("T1 Z_VALID_DAYS", E.Z_VALID_DAYS, 30)
 
 
@@ -162,7 +166,8 @@ def t5_zscore():
     """
     설계: 90관측. 일간수익률을 +0.1% / -0.1% 로 교대시키면 30일 표준편차가
     0.001 근방으로 고정되고 모든 |z| ≈ 1 이 되어 이벤트가 생기지 않는다.
-    마지막 관측만 +1.0% 로 주면 그 날만 z ≈ +10 으로 임계 2.0을 넘는다.
+    마지막 관측만 +1.0% 로 주면 그 날만 z ≈ +10 으로 임계 3.0을 넘고
+    일간 변동 1.0%도 하한 0.75%를 넘는다(v1.5).
     따라서 유효 이벤트는 정확히 1건, 일자는 today, 만료는 today+30일,
     valid=True 여야 한다(§2-③).
     """
@@ -183,11 +188,50 @@ def t5_zscore():
         check("T5 이벤트 일자", e["date"], today.isoformat())
         check("T5 만료일(+30일)", e["expires"], (today + timedelta(days=30)).isoformat())
         check("T5 유효 여부", e["valid"], True)
-        check("T5 z 부호·임계", e["z"] > 2.0, True, f"z={e.get('z')}")
+        check("T5 z 부호·임계", e["z"] > 3.0, True, f"z={e.get('z')}")
+
+
+def _alt_series(step, last_ret, n=90):
+    today = date.today()
+    prices, p = [], 100.0
+    for i in range(n - 1):
+        prices.append(p)
+        p *= (1 + step) if i % 2 == 0 else (1 - step)
+    prices.append(prices[-1] * (1 + last_ret))
+    return [((today - timedelta(days=n - 1 - i)).isoformat(), round(v, 6)) for i, v in enumerate(prices)]
+
+
+# ── T6. S8 강화 기준의 두 조건 (v1.5) ──────────────────────────────
+def t6_zscore_filters():
+    """
+    (a) z 조건 단독 탈락: 교대 ±0.3% → 30관측 σ ≈ 0.003. 마지막 +0.8% → z ≈ 2.7.
+        변동 0.8%는 하한 0.75% 이상이지만 z가 3.0 이하이므로 이벤트 0건.
+    (b) 변동 폭 조건 단독 탈락: 교대 ±0.1% → σ ≈ 0.001. 마지막 +0.5% → z ≈ 5.
+        z는 3.0 초과이지만 변동 0.5%가 하한 0.75% 미만이므로 이벤트 0건.
+    (c) 두 조건 충족: 교대 ±0.2% → σ ≈ 0.002. 마지막 +0.8% → z ≈ 4. 이벤트 1건.
+    """
+    check("T6a z 2.7·변동 0.8% → 0건", len(E.zscore_events(_alt_series(0.003, 0.008))), 0)
+    check("T6b z 5·변동 0.5% → 0건", len(E.zscore_events(_alt_series(0.001, 0.005))), 0)
+    check("T6c z 4·변동 0.8% → 1건", len(E.zscore_events(_alt_series(0.002, 0.008))), 1)
+
+
+# ── T7. S6 이동평균 (v1.5) ─────────────────────────────────────────
+def t7_rolling_mean():
+    """
+    값 1..25, n=20 → 산출 6건. 첫 값 = mean(1..20) = 10.5, 마지막 = mean(6..25) = 15.5.
+    """
+    today = date.today()
+    s = [((today - timedelta(days=25 - t)).isoformat(), float(t)) for t in range(1, 26)]
+    m = E.rolling_mean(s, 20)
+    check("T7 산출 건수", len(m), 6)
+    if len(m) == 6:
+        approx("T7 첫 이동평균", m[0][1], 10.5, tol=1e-9)
+        approx("T7 마지막 이동평균", m[-1][1], 15.5, tol=1e-9)
+        check("T7 마지막 일자", m[-1][0], today.isoformat())
 
 
 def main():
-    for fn in (t1_constants, t2_percentile, t3_scan_low, t3_scan_high, t5_zscore):
+    for fn in (t1_constants, t2_percentile, t3_scan_low, t3_scan_high, t5_zscore, t6_zscore_filters, t7_rolling_mean):
         try:
             fn()
         except Exception as exc:  # noqa: BLE001
@@ -200,7 +244,7 @@ def main():
             print(f"  - {f}")
         print("→ 프롬프트 [3](b) 실패 분기로 이행할 것. 판정을 확정하지 말 것.")
         return 1
-    print(f"FIXTURE PASS — 엔진 {engine_ver} / 픽스처 {FIXTURE_VERSION} / 검사 5종")
+    print(f"FIXTURE PASS — 엔진 {engine_ver} / 픽스처 {FIXTURE_VERSION} / 검사 7종")
     return 0
 
 

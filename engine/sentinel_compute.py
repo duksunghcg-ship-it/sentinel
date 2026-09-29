@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-ENGINE_VERSION = "v1.4"          # 개정 시 반드시 갱신 (head -5 | grep 로 판독)
-ENGINE_UPDATED = "2026-08-26"
+ENGINE_VERSION = "v1.5"          # 개정 시 반드시 갱신 (head -5 | grep 로 판독)
+ENGINE_UPDATED = "2026-09-28"
 """
-sentinel_compute.py — SENTINEL S4/S7/S8 정량 신호 산출기
+sentinel_compute.py — SENTINEL S4/S6/S7/S8 정량 신호 산출기
 ================================================================
 SSOT §1-B 준거. 웹/챗 실행 환경(코드 실행 가능) 전용.
 
@@ -67,6 +67,19 @@ v1.4 (2026-08-26) ★S7 1차 복구 경로 — FRED API 호스트 편입.
      ★S7 신호를 제거하지 않는다. 8신호 체계와 단계 명칭표(원칙 ④),
        부칙 A의 v2기준 카운트는 모두 N/8을 전제로 하므로, 신호 제거는
        SSOT 정식 개정(§2-① 카운트 SSOT) 사항이며 L4 권한 밖이다.
+
+v1.5 (2026-09-28) ★판정 로직 개정 2건 — 사용자 결정(2026-09-28), SSOT v3.2·SP v5.2 동기.
+     [S8 변화 분기 강화] 종전 z>±2σ는 2007~2026 거래일의 75%에서 활성
+       (최근 3년 76%)이어서 변별력이 없었다. z>±3σ 이면서 일간 변동
+       ±0.75% 이상으로 강화한다(같은 기간 활성 19%, 최근 3년 25%).
+       Z_THRESHOLD 2.0→3.0, Z_MIN_ABS_RET=0.0075 신설.
+     [S6 풋콜비율 복구·정량 이관] CBOE 일자별 JSON(cdn.cboe.com)에서
+       Total P/C를 취득하고, 원시값은 cache_CBOE_TOTALPC.csv에 누적하여
+       매 실행 시 누락분만 추가 취득한다. 20관측 이동평균을 3년 롤링
+       하위 5% 미만 2연속 활성 / 하위 10% 초과 2연속 해제로 판정한다.
+       종전 고정 임계 0.74는 2022년 이후 한 번도 도달하지 않았다.
+       최신 관측이 14 달력일보다 오래되면 결번으로 보고 판정유보(carry).
+     ★S4·S7·S8 레벨 판정(scan·percentile)은 무변경.
 """
 
 import argparse, csv, io, json, math, os, random, shutil, subprocess, sys, tempfile, time, urllib.request
@@ -84,9 +97,15 @@ SIGNALS = {
     "S4_VIX_HIGH": dict(series="VIXCLS",       window_y=1, direction="high", p_on=90, p_off=80, k_on=2, k_off=2),
     "S7_HY_OAS":   dict(series="BAMLH0A0HYM2", window_y=3, direction="low",  p_on=10, p_off=20, k_on=2, k_off=2),
     "S8_DXY_LVL":  dict(series="DTWEXBGS",     window_y=3, direction="high", p_on=90, p_off=80, k_on=2, k_off=2),
+    # v1.5: S6 = 20관측 이동평균 Total P/C, 3년 롤링 하위 5% 활성 / 하위 10% 해제
+    "S6_PC_LOW":   dict(series="CBOE_TOTALPC_MA20", window_y=3, direction="low", p_on=5, p_off=10, k_on=2, k_off=2,
+                        max_stale_days=14),
 }
-Z_SIGMA_WINDOW = 30      # S8 [변화] 30일 σ
-Z_THRESHOLD    = 2.0     # z > ±2σ
+Z_SIGMA_WINDOW = 30      # S8 [변화] 30관측 σ
+Z_THRESHOLD    = 3.0     # v1.5: z > ±3σ (종전 2.0)
+Z_MIN_ABS_RET  = 0.0075  # v1.5: 일간 변동 ±0.75% 이상
+PC_MA_WINDOW   = 20      # S6 20관측 이동평균
+PC_FETCH_MAX   = 60      # S6 회당 추가 취득 상한(영업일 수)
 Z_VALID_DAYS   = 30      # §2-③ 이탈일 +30 달력일
 
 
@@ -251,6 +270,49 @@ def fetch_yahoo_vix():
     out = [(datetime.fromtimestamp(t, timezone.utc).strftime("%Y-%m-%d"), round(c, 2)) for t, c in zip(ts, cl) if c]
     return out, "Yahoo ^VIX (2차)"
 
+PC_URL = "https://cdn.cboe.com/data/us/options/market_statistics/daily/{d}_daily_options"
+PC_RAW = "CBOE_TOTALPC"
+
+def rolling_mean(data, n):
+    """(일자, 값) 목록의 n관측 이동평균. n번째 관측부터 산출한다."""
+    out = []
+    for i in range(n - 1, len(data)):
+        w = data[i - n + 1:i + 1]
+        out.append((data[i][0], round(sum(v for _, v in w) / n, 6)))
+    return out
+
+def fetch_cboe_pc_ma20():
+    """★S6 1차 — CBOE 일자별 JSON의 TOTAL PUT/CALL RATIO(v1.5).
+    원시값은 cache_CBOE_TOTALPC.csv에 누적하고, 마지막 누적일 이후 영업일만 추가 취득한다.
+    휴장일·미게시일은 403을 반환하므로 건너뛴다(재시도하지 않음)."""
+    raw = {}
+    p = os.path.join(OUT, f"cache_{PC_RAW}.csv")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            raw = dict(_parse_csv(f.read()))
+    start = (date.fromisoformat(max(raw)) + timedelta(days=1)) if raw else \
+            (date.today() - timedelta(days=int(365.25 * 3) + 60))
+    d, tried, added = start, 0, 0
+    while d <= date.today() and tried < PC_FETCH_MAX and _budget_left() > 20:
+        if d.weekday() < 5:
+            tried += 1
+            try:
+                j = json.loads(_http_get(PC_URL.format(d=d.isoformat()), timeout=15))
+                v = [float(x["value"]) for x in j.get("ratios", []) if x.get("name") == "TOTAL PUT/CALL RATIO"]
+                if v:
+                    raw[d.isoformat()] = v[0]; added += 1
+            except Exception:
+                pass
+        d += timedelta(days=1)
+    rows = sorted(raw.items())
+    if added:
+        os.makedirs(OUT, exist_ok=True)
+        with open(p, "w", encoding="utf-8") as f:
+            f.write("observation_date,value\n")
+            f.writelines(f"{k},{v}\n" for k, v in rows)
+    FETCH_LOG.append(f"{PC_RAW}: 원시 누적 {len(rows)}관측, 이번 실행 추가 {added}건(시도 {tried})")
+    return rolling_mean(rows, PC_MA_WINDOW), "CBOE daily P/C (MA20)"
+
 def load_cache(series):
     p = os.path.join(OUT, f"cache_{series}.csv")
     if not os.path.exists(p):
@@ -275,6 +337,8 @@ def _sources_for(series):
                 (lambda: fetch_fred_api(series),   "FRED API", "1차"),
                 (lambda: fetch_fred(series),       "FRED web", "1차"),
                 (fetch_yahoo_vix,                  "Yahoo",    "2차")]
+    if series == "CBOE_TOTALPC_MA20":
+        return [(fetch_cboe_pc_ma20,               "CBOE daily", "1차")]
     if series == "DTWEXBGS":
         return [(fetch_fed_h10_dxy,                "Fed H.10", "1차"),
                 (lambda: fetch_fred_api(series),   "FRED API", "1차"),
@@ -353,7 +417,7 @@ def scan(data, cfg, since=None):
                 latest=win[-1], events=events[-6:], trace=trace[-15:])
 
 def zscore_events(data):
-    """S8 [변화]: 일간수익률 z>±2σ(30일 σ), 이탈일 +30 달력일 유효."""
+    """S8 [변화]: 일간수익률 z>±3σ(30관측 σ) 이고 |수익률| ≥0.75%, 이탈일 +30 달력일 유효(v1.5)."""
     win = slice_window(data, 1)
     v = [x[1] for x in win]
     rets = [(win[i][0], v[i] / v[i - 1] - 1) for i in range(1, len(v))]
@@ -365,7 +429,7 @@ def zscore_events(data):
         if sd == 0: continue
         d, r = rets[i]
         z = (r - mu) / sd
-        if abs(z) > Z_THRESHOLD:
+        if abs(z) > Z_THRESHOLD and abs(r) >= Z_MIN_ABS_RET:
             exp = (date.fromisoformat(d) + timedelta(days=Z_VALID_DAYS))
             out.append(dict(date=d, ret_pct=round(r * 100, 3), z=round(z, 2),
                             expires=exp.isoformat(), valid=exp >= today))
@@ -378,6 +442,10 @@ def run(since=None):
         try:
             data, src, tier, deg = acquire(cfg["series"])
             r = scan(data, cfg, since)
+            ms = cfg.get("max_stale_days")
+            if ms is not None and (date.today() - date.fromisoformat(r["latest"][0])).days > ms:
+                # SSOT §2-⑦(다) 결번: 최신 관측이 오래되면 확정하지 않고 판정유보
+                raise RuntimeError(f"결번 — 최신 관측 {r['latest'][0]}이 {ms}일 초과 경과")
             r.update(source=src, tier=tier, degraded=deg, verdict="확정")
             if deg: degraded.append(f"{key}: {src} [{tier}]")
             if key == "S8_DXY_LVL":

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-run_sentinel.py v0.2 (2026-09-07) — 비정량 신호를 latest.json에 포함 — GitHub Actions용 실행기
+run_sentinel.py v0.3 (2026-09-28) — S6 정량 이관(엔진 v1.5) — GitHub Actions용 실행기
   1) sentinel_compute.py(v1.4, 판정 로직 무변경)를 임포트해 실행한다
   2) state/latest.json 을 갱신하고 state/history.csv 에 그날 판정을 추가한다(추가 전용)
   3) state/nonquant.json(사람이 갱신하는 비정량 5신호)과 합쳐 잠정 카운트·단계를 낸다
@@ -17,7 +17,7 @@ import sentinel_compute as E  # noqa: E402
 
 # SSOT §2-④ 단계 고정표
 STAGE = [(0, 2, "정상"), (3, 4, "거품 경계"), (5, 6, "거품 후기"), (7, 8, "폭락 임박")]
-QUANT_KEY = {"S4": "S4_VIX_LOW", "S7": "S7_HY_OAS", "S8": "S8_DXY_LVL"}
+QUANT_KEY = {"S4": "S4_VIX_LOW", "S6": "S6_PC_LOW", "S7": "S7_HY_OAS", "S8": "S8_DXY_LVL"}
 
 
 def stage_of(n):
@@ -109,6 +109,7 @@ def main():
     # ── 카운트: S4 두 방향은 1카운트, S8은 레벨 OR 변화 ───────────
     q = {
         "S4": bool(quant_active.get("S4_VIX_LOW") or quant_active.get("S4_VIX_HIGH")),
+        "S6": bool(quant_active.get("S6_PC_LOW")),
         "S7": bool(quant_active.get("S7_HY_OAS")),
         "S8": bool(quant_active.get("S8_DXY_LVL") or signals.get("S8_DXY_CHG", {}).get("state") == "active"),
     }
@@ -116,6 +117,8 @@ def main():
     count = sum(1 for v in q.values() if v)
     nonq = load_json(os.path.join(a.out, "nonquant.json"), {"signals": {}})
     for k, v in nonq.get("signals", {}).items():
+        if k in QUANT_KEY:        # v0.3: 정량으로 이관된 신호는 비정량 파일에 남아 있어도 이중 산입하지 않음
+            continue
         if v.get("state") == "active":
             count += 1
         if v.get("state") in ("active", "inactive"):
