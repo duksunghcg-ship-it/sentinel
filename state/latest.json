@@ -1,16 +1,17 @@
 {
   "as_of": "2026-09-29",
-  "engine_version": "v1.4",
+  "engine_version": "v1.5",
   "since_used": "2026-09-22",
-  "count": 6,
+  "count": 5,
   "denominator": 8,
-  "denominator_live": 7,
+  "denominator_live": 8,
   "stage": "거품 후기",
-  "stage_note": "S8 [변화] 만료 2026-10-23 — 신규 이탈 없으면 카운트 1 감소",
+  "stage_note": "",
   "quant_active": {
     "S4": true,
+    "S6": false,
     "S7": false,
-    "S8": true
+    "S8": false
   },
   "nonquant_as_of": "2026-09-07",
   "nonquant": {
@@ -27,8 +28,8 @@
       "value": 237.4,
       "as_of": "2026-09-05",
       "source": "GuruFocus",
-      "note": "US Buffett >150%. KR 수동 미입력",
-      "threshold": "US >150% (KR >120%, 수동 미입력)"
+      "note": "US Buffett >150%. KR 버핏지표는 SP §9 참고치(카운트 미산입)",
+      "threshold": "US >150% (KR 분리, 카운트 미산입)"
     },
     "S3": {
       "state": "active",
@@ -45,36 +46,28 @@
       "source": "Renaissance",
       "note": "YTD IPO 건수, 분기 상위 20%",
       "threshold": "분기 IPO+SPAC 건수 역사 상위 20%"
-    },
-    "S6": {
-      "state": "carry",
-      "value": null,
-      "as_of": "2026-07-15",
-      "source": "CBOE",
-      "note": "일간로그 결번, 직전확정(비활성) 승계 — 카운트 미산입",
-      "threshold": "20일 평균 <0.74 (결번 시 직전확정 승계, 카운트 미산입)"
     }
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 14.87,
-      "as_of": "2026-09-25",
-      "cut_on": 14.938,
-      "cut_off": 15.746,
+      "value": 16.07,
+      "as_of": "2026-09-28",
+      "cut_on": 14.941,
+      "cut_off": 15.752,
       "state": "active",
       "since": "2026-09-23",
-      "headroom_pct": 5.9,
+      "headroom_pct": 2.0,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 14.87,
-      "as_of": "2026-09-25",
-      "cut_on": 23.534,
-      "cut_off": 19.854,
+      "value": 16.07,
+      "as_of": "2026-09-28",
+      "cut_on": 23.528,
+      "cut_off": 19.848,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 58.3,
+      "headroom_pct": 46.4,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
@@ -98,70 +91,68 @@
       "since": "2025-04-15",
       "headroom_pct": 5.2,
       "tier": "1차",
-      "source": "FRED API"
+      "source": "Fed H.10 JRXWTFB_N.B"
     },
     "S8_DXY_CHG": {
-      "state": "active",
-      "events": [
-        {
-          "date": "2026-09-14",
-          "ret_pct": 0.406,
-          "z": 2.47,
-          "expires": "2026-10-14",
-          "valid": true
-        },
-        {
-          "date": "2026-09-23",
-          "ret_pct": 0.438,
-          "z": 2.12,
-          "expires": "2026-10-23",
-          "valid": true
-        }
-      ],
-      "expires": "2026-10-23"
+      "state": "inactive",
+      "events": [],
+      "expires": null
+    },
+    "S6_PC_LOW": {
+      "value": 0.834,
+      "as_of": "2026-09-28",
+      "cut_on": 0.8213,
+      "cut_off": 0.831,
+      "state": "inactive",
+      "since": "2026-06-18",
+      "headroom_pct": 1.5,
+      "tier": "1차",
+      "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-25",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-09-28",
     "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-09-25",
-    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
-    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-09-25"
+    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-25",
+    "CBOE_TOTALPC: 원시 누적 1189관측, 이번 실행 추가 1건(시도 2)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-09-28"
   ],
   "primary_ok": {
     "VIXCLS": true,
     "BAMLH0A0HYM2": true,
-    "DTWEXBGS": true
+    "DTWEXBGS": true,
+    "CBOE_TOTALPC_MA20": true
   },
   "degraded": [],
   "pending": [
     {
-      "item": "MS 3분기 정기 결정 세션 미개최",
-      "since": "2026-08-16",
+      "item": "S6 재캘리브레이션·S8 강화 판별력 점검 (Q4 정기 점검)",
+      "since": "2026-09-28",
       "owner": "MS"
     },
     {
-      "item": "S6 풋콜비율 취득 경로 재설계 또는 제외",
-      "since": "2026-07-15",
+      "item": "Q3 방어 전환 집행 확인 (연금 4계좌 약 5,510만원)",
+      "since": "2026-09-24",
+      "owner": "사용자"
+    },
+    {
+      "item": "Max DD 기준값 확정 (8/17 고점 여부, 감소분 약 7,900만원 성격)",
+      "since": "2026-09-24",
+      "owner": "사용자"
+    },
+    {
+      "item": "비정량 신호 값 저장소 미반영 (주간 브리핑 값과 nonquant.json 불일치, 판정 변화 없음)",
+      "since": "2026-09-28",
+      "owner": "사용자"
+    },
+    {
+      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토",
+      "since": "2026-09-24",
       "owner": "MS"
     },
     {
-      "item": "S2-KR 자동 계산 또는 제외",
-      "since": "2026-07-01",
-      "owner": "MS"
-    },
-    {
-      "item": "임계표 v3 승인대기 해소",
-      "since": "2026-08-30",
-      "owner": "MS"
-    },
-    {
-      "item": "S8 [변화] 분기 카운트 산입 여부",
-      "since": "2026-09-07",
-      "owner": "MS"
-    },
-    {
-      "item": "EconCalendar 9월 월간 갱신",
-      "since": "2026-09-01",
+      "item": "단일 종목 한도 조항 부재",
+      "since": "2026-09-24",
       "owner": "MS"
     }
   ]
