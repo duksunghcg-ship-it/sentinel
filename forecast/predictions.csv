@@ -19,3 +19,7 @@ date,target,close_date,direction,prob,reason_class,source
 2026-09-28,SP500,2026-09-28,상승,55,매크로,issue_comment:5887754995
 2026-09-29,KOSPI,2026-09-29,하락,60,매크로,issue_comment:5887759561
 2026-09-29,SP500,2026-09-29,하락,52,매크로,issue_comment:5887759561
+2026-09-30,KOSPI,2026-09-30,하락,58,매크로,issue_comment:5927797470
+2026-09-30,SP500,2026-09-30,하락,53,이벤트,issue_comment:5927797470
+2026-10-01,KOSPI,2026-10-01,상승,58,매크로,issue_comment:5927802436
+2026-10-01,SP500,2026-10-01,상승,53,이벤트,issue_comment:5927802436
