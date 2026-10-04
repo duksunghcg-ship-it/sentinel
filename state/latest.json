@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-04",
+  "as_of": "2026-10-05",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -85,8 +85,8 @@
     "S8_DXY_LVL": {
       "value": 120.33,
       "as_of": "2026-09-25",
-      "cut_on": 126.621,
-      "cut_off": 123.7379,
+      "cut_on": 126.6233,
+      "cut_off": 123.6963,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 5.2,
@@ -114,7 +114,7 @@
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-02",
     "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-01",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-09-25",
-    "CBOE_TOTALPC: 원시 누적 1193관측, 이번 실행 추가 1건(시도 1)",
+    "CBOE_TOTALPC: 원시 누적 1193관측, 이번 실행 추가 0건(시도 1)",
     "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-02"
   ],
   "primary_ok": {
