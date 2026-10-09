@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-08",
+  "as_of": "2026-10-09",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -50,35 +50,35 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 15.01,
-      "as_of": "2026-10-06",
+      "value": 15.08,
+      "as_of": "2026-10-07",
       "cut_on": 14.938,
-      "cut_off": 15.68,
+      "cut_off": 15.67,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 0.5,
+      "headroom_pct": 0.9,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 15.01,
-      "as_of": "2026-10-06",
+      "value": 15.08,
+      "as_of": "2026-10-07",
       "cut_on": 23.534,
       "cut_off": 19.854,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 56.8,
+      "headroom_pct": 56.1,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.03,
-      "as_of": "2026-10-06",
+      "value": 3.09,
+      "as_of": "2026-10-07",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 11.2,
+      "headroom_pct": 12.9,
       "tier": "1차",
       "source": "FRED API"
     },
@@ -99,8 +99,8 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.835,
-      "as_of": "2026-10-06",
+      "value": 0.8345,
+      "as_of": "2026-10-07",
       "cut_on": 0.8213,
       "cut_off": 0.8305,
       "state": "inactive",
@@ -111,11 +111,11 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-06",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-06",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-07",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-07",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-02",
-    "CBOE_TOTALPC: 원시 누적 1195관측, 이번 실행 추가 1건(시도 3)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-06"
+    "CBOE_TOTALPC: 원시 누적 1196관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-07"
   ],
   "primary_ok": {
     "VIXCLS": true,
