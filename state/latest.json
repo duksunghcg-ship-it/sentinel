@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-12",
+  "as_of": "2026-10-13",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -50,24 +50,24 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 14.84,
-      "as_of": "2026-10-09",
-      "cut_on": 14.916,
-      "cut_off": 15.584,
+      "value": 15.21,
+      "as_of": "2026-10-12",
+      "cut_on": 14.917,
+      "cut_off": 15.54,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 0.5,
+      "headroom_pct": 1.9,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 14.84,
-      "as_of": "2026-10-09",
-      "cut_on": 23.534,
-      "cut_off": 19.788,
+      "value": 15.21,
+      "as_of": "2026-10-12",
+      "cut_on": 23.528,
+      "cut_off": 19.746,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 58.6,
+      "headroom_pct": 54.7,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
@@ -85,8 +85,8 @@
     "S8_DXY_LVL": {
       "value": 121.3848,
       "as_of": "2026-10-02",
-      "cut_on": 126.621,
-      "cut_off": 123.6882,
+      "cut_on": 126.6233,
+      "cut_off": 123.6963,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 4.3,
@@ -100,7 +100,7 @@
     },
     "S6_PC_LOW": {
       "value": 0.8355,
-      "as_of": "2026-10-09",
+      "as_of": "2026-10-12",
       "cut_on": 0.8213,
       "cut_off": 0.8305,
       "state": "inactive",
@@ -111,11 +111,11 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-09",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-12",
     "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-08",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-02",
-    "CBOE_TOTALPC: 원시 누적 1198관측, 이번 실행 추가 0건(시도 1)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-09"
+    "CBOE_TOTALPC: 원시 누적 1199관측, 이번 실행 추가 1건(시도 2)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-12"
   ],
   "primary_ok": {
     "VIXCLS": true,
