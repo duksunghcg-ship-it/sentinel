@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-13",
+  "as_of": "2026-10-14",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -52,8 +52,8 @@
     "S4_VIX_LOW": {
       "value": 15.21,
       "as_of": "2026-10-12",
-      "cut_on": 14.917,
-      "cut_off": 15.54,
+      "cut_on": 14.916,
+      "cut_off": 15.53,
       "state": "inactive",
       "since": "2026-10-01",
       "headroom_pct": 1.9,
@@ -63,8 +63,8 @@
     "S4_VIX_HIGH": {
       "value": 15.21,
       "as_of": "2026-10-12",
-      "cut_on": 23.528,
-      "cut_off": 19.746,
+      "cut_on": 23.534,
+      "cut_off": 19.788,
       "state": "inactive",
       "since": "2026-04-10",
       "headroom_pct": 54.7,
@@ -72,26 +72,26 @@
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.15,
-      "as_of": "2026-10-08",
+      "value": 3.11,
+      "as_of": "2026-10-12",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 14.6,
+      "headroom_pct": 13.5,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 121.3848,
-      "as_of": "2026-10-02",
-      "cut_on": 126.6233,
-      "cut_off": 123.6963,
+      "value": 121.6023,
+      "as_of": "2026-10-09",
+      "cut_on": 126.6115,
+      "cut_off": 123.6671,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 4.3,
+      "headroom_pct": 4.1,
       "tier": "1차",
-      "source": "Fed H.10 JRXWTFB_N.B"
+      "source": "FRED API"
     },
     "S8_DXY_CHG": {
       "state": "inactive",
@@ -112,9 +112,10 @@
   },
   "fetch_log": [
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-12",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-08",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-02",
-    "CBOE_TOTALPC: 원시 누적 1199관측, 이번 실행 추가 1건(시도 2)",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-12",
+    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
+    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-10-09",
+    "CBOE_TOTALPC: 원시 누적 1199관측, 이번 실행 추가 0건(시도 2)",
     "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-12"
   ],
   "primary_ok": {
