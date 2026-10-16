@@ -1,37 +1,37 @@
 {
   "_설명": "비정량 4신호(S1·S2·S3·S5, 2026-09-28 S6 정량 이관)의 현행 판정과 임계. 월간 결정 세션 또는 주간 브리핑 확인 후 사람이 PR로 갱신한다. state = active | inactive | carry | manual_missing. 주간 브리핑은 웹 조회값이 threshold 를 넘는지로 판정하고, 여기 적힌 state 는 직전 확정 판정이다.",
-  "as_of": "2026-09-07",
+  "as_of": "2026-10-14",
   "signals": {
     "S1": {
       "state": "active",
-      "value": 41.41,
-      "as_of": "2026-09-04",
+      "value": 41.84,
+      "as_of": "2026-10-13",
       "source": "multpl.com",
-      "note": "CAPE >80%ile",
-      "threshold": "CAPE 역사 백분위 >80%ile (현 41.41은 약 97%ile)"
+      "note": "CAPE >80%ile. 2026-10-14 갱신(multpl 10/13 종가 기준)",
+      "threshold": "CAPE 역사 백분위 >80%ile (현 41.84는 직전 41.41(약 97%ile)보다 높음, 역사 최고 44.19)"
     },
     "S2": {
       "state": "active",
-      "value": 237.4,
-      "as_of": "2026-09-05",
+      "value": 238.1,
+      "as_of": "2026-10-13",
       "source": "GuruFocus",
-      "note": "US Buffett >150%. KR 버핏지표는 SP §9 참고치(카운트 미산입)",
+      "note": "US Buffett >150%. 2026-10-14 갱신(GuruFocus 시장 밸류에이션 페이지). KR 버핏지표는 SP §9 참고치(카운트 미산입)",
       "threshold": "US >150% (KR 분리, 카운트 미산입)"
     },
     "S3": {
       "state": "active",
-      "value": 1.42,
-      "as_of": "2026-07",
+      "value": 1.454,
+      "as_of": "2026-08",
       "source": "FINRA",
-      "note": "Margin Debt 1.42조 USD, 장기평균 +1σ 초과",
+      "note": "Margin Debt 1.454조 USD(8월분, 7월 1.417 대비 +2.6%, 6월 최고 1.502 하회). 2026-10-14 갱신. GDP 대비 σ 재산출은 미실시하고 직전 판정을 승계함",
       "threshold": "Margin Debt 장기평균 +1σ 초과"
     },
     "S5": {
       "state": "active",
-      "value": 106,
-      "as_of": "2026-09-04",
+      "value": 65,
+      "as_of": "2026-09-30",
       "source": "Renaissance",
-      "note": "YTD IPO 건수, 분기 상위 20%",
+      "note": "3Q26 분기 건수 = IPO 30 + SPAC 35 (Renaissance 3Q26 US Review, 2026-10-01). 직전 값 106은 연초 이후 누적 건수로 임계(분기 건수)와 단위가 달랐음. 활성 여부는 pending 재확인 항목 참조",
       "threshold": "분기 IPO+SPAC 건수 역사 상위 20%"
     }
   },
@@ -42,27 +42,22 @@
       "owner": "MS"
     },
     {
-      "item": "Q3 방어 전환 집행 확인 (연금 4계좌 약 5,510만원)",
-      "since": "2026-09-24",
-      "owner": "사용자"
-    },
-    {
-      "item": "Max DD 기준값 확정 (8/17 고점 여부, 감소분 약 7,900만원 성격)",
-      "since": "2026-09-24",
-      "owner": "사용자"
-    },
-    {
-      "item": "비정량 신호 값 저장소 미반영 (주간 브리핑 값과 nonquant.json 불일치, 판정 변화 없음)",
-      "since": "2026-09-28",
-      "owner": "사용자"
-    },
-    {
-      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토",
+      "item": "Q3 방어 전환: 2026-10-14 사용자 통보 — 거의 미집행. 집행 여부와 범위는 2026-10-16 중간 점검에서 재결정",
       "since": "2026-09-24",
       "owner": "MS"
     },
     {
-      "item": "단일 종목 한도 조항 부재",
+      "item": "Max DD 기준값: 2026-10-14 사용자 통보 — 9/10 감소분 약 7,900만원은 평가 손실, 순입출금 0. 남은 확인은 8/17 7억 2,100만원 고점 여부와 현재 합산 평가액",
+      "since": "2026-09-24",
+      "owner": "사용자"
+    },
+    {
+      "item": "S5 판정 재확인: 3Q26 분기 65건(IPO 30, SPAC 35)이 역사 분기 분포 상위 20%에 드는지 대조 필요. 이탈 확정 시 카운트 4→3, 단계는 거품 경계 유지",
+      "since": "2026-10-14",
+      "owner": "MS"
+    },
+    {
+      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토, 단일 종목 한도 조항 신설 여부",
       "since": "2026-09-24",
       "owner": "MS"
     }
