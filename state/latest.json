@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -13,80 +13,80 @@
     "S7": false,
     "S8": false
   },
-  "nonquant_as_of": "2026-09-07",
+  "nonquant_as_of": "2026-10-14",
   "nonquant": {
     "S1": {
       "state": "active",
-      "value": 41.41,
-      "as_of": "2026-09-04",
+      "value": 41.84,
+      "as_of": "2026-10-13",
       "source": "multpl.com",
-      "note": "CAPE >80%ile",
-      "threshold": "CAPE 역사 백분위 >80%ile (현 41.41은 약 97%ile)"
+      "note": "CAPE >80%ile. 2026-10-14 갱신(multpl 10/13 종가 기준)",
+      "threshold": "CAPE 역사 백분위 >80%ile (현 41.84는 직전 41.41(약 97%ile)보다 높음, 역사 최고 44.19)"
     },
     "S2": {
       "state": "active",
-      "value": 237.4,
-      "as_of": "2026-09-05",
+      "value": 238.1,
+      "as_of": "2026-10-13",
       "source": "GuruFocus",
-      "note": "US Buffett >150%. KR 버핏지표는 SP §9 참고치(카운트 미산입)",
+      "note": "US Buffett >150%. 2026-10-14 갱신(GuruFocus 시장 밸류에이션 페이지). KR 버핏지표는 SP §9 참고치(카운트 미산입)",
       "threshold": "US >150% (KR 분리, 카운트 미산입)"
     },
     "S3": {
       "state": "active",
-      "value": 1.42,
-      "as_of": "2026-07",
+      "value": 1.454,
+      "as_of": "2026-08",
       "source": "FINRA",
-      "note": "Margin Debt 1.42조 USD, 장기평균 +1σ 초과",
+      "note": "Margin Debt 1.454조 USD(8월분, 7월 1.417 대비 +2.6%, 6월 최고 1.502 하회). 2026-10-14 갱신. GDP 대비 σ 재산출은 미실시하고 직전 판정을 승계함",
       "threshold": "Margin Debt 장기평균 +1σ 초과"
     },
     "S5": {
       "state": "active",
-      "value": 106,
-      "as_of": "2026-09-04",
+      "value": 65,
+      "as_of": "2026-09-30",
       "source": "Renaissance",
-      "note": "YTD IPO 건수, 분기 상위 20%",
+      "note": "3Q26 분기 건수 = IPO 30 + SPAC 35 (Renaissance 3Q26 US Review, 2026-10-01). 직전 값 106은 연초 이후 누적 건수로 임계(분기 건수)와 단위가 달랐음. 활성 여부는 pending 재확인 항목 참조",
       "threshold": "분기 IPO+SPAC 건수 역사 상위 20%"
     }
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 16.87,
-      "as_of": "2026-10-14",
+      "value": 16.46,
+      "as_of": "2026-10-15",
       "cut_on": 14.916,
       "cut_off": 15.472,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 11.6,
+      "headroom_pct": 9.4,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 16.87,
-      "as_of": "2026-10-14",
-      "cut_on": 23.534,
-      "cut_off": 19.54,
+      "value": 16.46,
+      "as_of": "2026-10-15",
+      "cut_on": 23.462,
+      "cut_off": 19.5,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 39.5,
+      "headroom_pct": 42.5,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.25,
-      "as_of": "2026-10-14",
+      "value": 3.23,
+      "as_of": "2026-10-15",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 17.2,
+      "headroom_pct": 16.7,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
       "value": 121.6023,
       "as_of": "2026-10-09",
-      "cut_on": 126.6139,
-      "cut_off": 123.6696,
+      "cut_on": 126.6163,
+      "cut_off": 123.672,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 4.1,
@@ -99,23 +99,23 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.829,
-      "as_of": "2026-10-14",
+      "value": 0.8295,
+      "as_of": "2026-10-15",
       "cut_on": 0.8213,
-      "cut_off": 0.8305,
+      "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 0.9,
+      "headroom_pct": 1.0,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-14",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-14",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-15",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-15",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-09",
-    "CBOE_TOTALPC: 원시 누적 1201관측, 이번 실행 추가 1건(시도 3)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-14"
+    "CBOE_TOTALPC: 원시 누적 1202관측, 이번 실행 추가 1건(시도 2)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-15"
   ],
   "primary_ok": {
     "VIXCLS": true,
@@ -131,27 +131,22 @@
       "owner": "MS"
     },
     {
-      "item": "Q3 방어 전환 집행 확인 (연금 4계좌 약 5,510만원)",
-      "since": "2026-09-24",
-      "owner": "사용자"
-    },
-    {
-      "item": "Max DD 기준값 확정 (8/17 고점 여부, 감소분 약 7,900만원 성격)",
-      "since": "2026-09-24",
-      "owner": "사용자"
-    },
-    {
-      "item": "비정량 신호 값 저장소 미반영 (주간 브리핑 값과 nonquant.json 불일치, 판정 변화 없음)",
-      "since": "2026-09-28",
-      "owner": "사용자"
-    },
-    {
-      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토",
+      "item": "Q3 방어 전환: 2026-10-14 사용자 통보 — 거의 미집행. 집행 여부와 범위는 2026-10-16 중간 점검에서 재결정",
       "since": "2026-09-24",
       "owner": "MS"
     },
     {
-      "item": "단일 종목 한도 조항 부재",
+      "item": "Max DD 기준값: 2026-10-14 사용자 통보 — 9/10 감소분 약 7,900만원은 평가 손실, 순입출금 0. 남은 확인은 8/17 7억 2,100만원 고점 여부와 현재 합산 평가액",
+      "since": "2026-09-24",
+      "owner": "사용자"
+    },
+    {
+      "item": "S5 판정 재확인: 3Q26 분기 65건(IPO 30, SPAC 35)이 역사 분기 분포 상위 20%에 드는지 대조 필요. 이탈 확정 시 카운트 4→3, 단계는 거품 경계 유지",
+      "since": "2026-10-14",
+      "owner": "MS"
+    },
+    {
+      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토, 단일 종목 한도 조항 신설 여부",
       "since": "2026-09-24",
       "owner": "MS"
     }
