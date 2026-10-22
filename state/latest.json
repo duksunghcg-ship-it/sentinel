@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-22",
+  "as_of": "2026-10-23",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -50,43 +50,43 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 17.31,
-      "as_of": "2026-10-20",
+      "value": 16.68,
+      "as_of": "2026-10-21",
       "cut_on": 14.916,
       "cut_off": 15.472,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 13.8,
+      "headroom_pct": 10.6,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 17.31,
-      "as_of": "2026-10-20",
+      "value": 16.68,
+      "as_of": "2026-10-21",
       "cut_on": 23.462,
       "cut_off": 19.5,
       "state": "inactive",
       "since": "2026-04-10",
-      "headroom_pct": 35.5,
+      "headroom_pct": 40.7,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.29,
-      "as_of": "2026-10-19",
+      "value": 3.27,
+      "as_of": "2026-10-21",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 18.2,
-      "tier": "캐시",
-      "source": "캐시(스냅샷)"
+      "headroom_pct": 17.7,
+      "tier": "1차",
+      "source": "FRED API"
     },
     "S8_DXY_LVL": {
       "value": 121.4048,
       "as_of": "2026-10-16",
-      "cut_on": 126.6139,
-      "cut_off": 123.6509,
+      "cut_on": 126.6163,
+      "cut_off": 123.6532,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 4.3,
@@ -99,35 +99,31 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.846,
-      "as_of": "2026-10-20",
+      "value": 0.8465,
+      "as_of": "2026-10-21",
       "cut_on": 0.8213,
       "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 2.9,
+      "headroom_pct": 3.0,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-20",
-    "BAMLH0A0HYM2: FRED API 실패 — Expecting value: line 1 column 1 (char 0)",
-    "BAMLH0A0HYM2: FRED web 실패 — curl rc=92 http=000 curl: (92) HTTP/2 stream 1 was not closed cleanly:",
-    "BAMLH0A0HYM2: 캐시 폴백 [캐시] 최신 2026-10-19",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-21",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-21",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-16",
-    "CBOE_TOTALPC: 원시 누적 1205관측, 이번 실행 추가 1건(시도 3)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-20"
+    "CBOE_TOTALPC: 원시 누적 1206관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-21"
   ],
   "primary_ok": {
     "VIXCLS": true,
-    "BAMLH0A0HYM2": false,
+    "BAMLH0A0HYM2": true,
     "DTWEXBGS": true,
     "CBOE_TOTALPC_MA20": true
   },
-  "degraded": [
-    "S7_HY_OAS: 캐시(스냅샷) [캐시]"
-  ],
+  "degraded": [],
   "pending": [
     {
       "item": "S6 재캘리브레이션·S8 강화 판별력 점검 (Q4 정기 점검)",
