@@ -18,6 +18,8 @@ jobs:
       TZ: Asia/Seoul
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 예측 커밋 파일의 최초 등록 시각 확인용
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -38,7 +40,7 @@ jobs:
             exit 0
           fi
           mkdir -p forecast
-          python engine/forecast_ingest.py --out forecast --issue "${FORECAST_ISSUE:-0}"
+          python engine/forecast_ingest.py --out forecast --issue "${FORECAST_ISSUE:-0}" --inbox forecast/inbox
           python engine/forecast_score.py --forecast forecast
 
       - name: 상태·캐시 커밋
