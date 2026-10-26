@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-forecast_ingest.py v0.2 (2026-09-14) — 데일리 브리핑 [예측] 블록 수집·파싱
+forecast_ingest.py v0.3 (2026-10-26) — 데일리 브리핑 [예측] 블록 수집·파싱
 
 입력 경로 2종을 모두 지원한다.
   (b) 이슈 댓글  : --issue N  (기본값. GH_TOKEN 또는 GITHUB_TOKEN 사용)
@@ -15,9 +15,12 @@ forecast_ingest.py v0.2 (2026-09-14) — 데일리 브리핑 [예측] 블록 수
   - 「휴장」이 포함된 줄은 예측 없음으로 보고 건너뛴다(오류 아님).
   - 방향은 상승/하락 2종만 허용한다. 중립·보합·횡보는 오류로 남긴다.
   - 확률은 50~90 정수만 허용한다.
-  - 근거분류는 매크로/수급/이벤트/신호감지 4종만 허용한다.
+  - 근거분류는 매크로/수급/이벤트/신호감지/정량 5종만 허용한다(정량은 v0.3에서 추가).
   - 댓글 하나에 [예측] 블록이 여러 개 있으면(며칠치를 몰아 붙인 경우) 전부 읽는다.
   - 같은 일자·대상이 두 번 들어오면 최초 1건만 채택하고 나머지는 오류 표에 남긴다.
+  - v0.3: 등록 시각(registered_at, UTC)을 남긴다. 이슈 댓글은 댓글 작성 시각, 커밋 파일은 그 파일이
+    처음 커밋된 시각이다. 이미 등재된 행도 등록 시각이 비어 있으면 채운다. 댓글이 작성 뒤 수정되면
+    수정 시각(edited_at)을 남기되, 예측 값은 최초로 읽은 것을 유지한다. 사후 등록 판정은 채점 모듈이 한다.
 사용: python engine/forecast_ingest.py --out forecast --issue 1
 """
 import argparse
@@ -25,18 +28,20 @@ import csv
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.request
 
 TARGETS = {"코스피": "KOSPI", "S&P500": "SP500", "S&P 500": "SP500"}
 DIRECTIONS = {"상승", "하락"}
-REASONS = {"매크로", "수급", "이벤트", "신호감지"}
+REASONS = {"매크로", "수급", "이벤트", "신호감지", "정량"}   # 정량 = 정량 사전확률을 그대로 따름(프롬프트 v5.0부터)
 
 HEAD_RE = re.compile(r"\[예측\]\s*(\d{4}-\d{2}-\d{2})")
 LINE_RE = re.compile(
     r"^\s*(?P<target>S&P\s?500|코스피)\s*종가[^:：]*[:：]\s*(?P<body>.+?)\s*$"
 )
-PRED_COLS = ["date", "target", "close_date", "direction", "prob", "reason_class", "source"]
+PRED_COLS = ["date", "target", "close_date", "direction", "prob", "reason_class", "source",
+             "registered_at", "edited_at"]
 ERR_COLS = ["captured_at", "source", "raw", "reason"]
 
 
@@ -65,7 +70,21 @@ def write_rows(path, cols, rows):
             w.writerow({c: r.get(c, "") for c in cols})
 
 
-def parse_block(text, source):
+def git_added_at(path):
+    """파일이 처음 커밋된 시각(UTC ISO). 확인할 수 없으면 빈 문자열."""
+    try:
+        out = subprocess.run(["git", "log", "--diff-filter=A", "--follow", "--format=%ct", "--", path],
+                             capture_output=True, text=True, timeout=30)
+        ts = [int(x) for x in out.stdout.split() if x.strip().isdigit()]
+        if not ts:
+            return ""
+        from datetime import datetime, timezone
+        return datetime.fromtimestamp(min(ts), timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    except Exception:
+        return ""
+
+
+def parse_block(text, source, registered_at=""):
     """댓글·파일 1건 안의 [예측] 블록 전부를 (예측행 리스트, 오류행 리스트)로 변환한다."""
     preds, errs = [], []
     heads = list(HEAD_RE.finditer(text))
@@ -105,7 +124,8 @@ def parse_block(text, source):
                 continue
             preds.append({"date": d, "target": target, "close_date": d,
                           "direction": direction, "prob": pm.group(1),
-                          "reason_class": reason, "source": source})
+                          "reason_class": reason, "source": source,
+                          "registered_at": registered_at, "edited_at": ""})
     return preds, errs
 
 
@@ -144,9 +164,21 @@ def main():
             page += 1
         for c in comments:
             src = f"issue_comment:{c['id']}"
+            created = c.get("created_at", "") or ""
+            updated = c.get("updated_at", "") or ""
+            edited = updated if updated and created and updated != created else ""
             if src in seen_src:
+                # 이미 등재된 댓글: 예측 값은 그대로 두고 등록·수정 시각만 보충한다
+                for r in preds:
+                    if r["source"] == src:
+                        if not r.get("registered_at"):
+                            r["registered_at"] = created
+                        if edited:
+                            r["edited_at"] = edited
                 continue
-            p, er = parse_block(c.get("body", ""), src)
+            p, er = parse_block(c.get("body", ""), src, created)
+            for r in p:
+                r["edited_at"] = edited
             new_p += p
             new_e += er
 
@@ -157,8 +189,9 @@ def main():
             src = f"commit:{fn}"
             if src in seen_src:
                 continue
-            with open(os.path.join(a.inbox, fn), encoding="utf-8") as f:
-                p, er = parse_block(f.read(), src)
+            fp = os.path.join(a.inbox, fn)
+            with open(fp, encoding="utf-8") as f:
+                p, er = parse_block(f.read(), src, git_added_at(fp))
             new_p += p
             new_e += er
 
