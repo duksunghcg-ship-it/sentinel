@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-26",
+  "as_of": "2026-10-27",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -72,26 +72,26 @@
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.4,
-      "as_of": "2026-10-22",
+      "value": 3.38,
+      "as_of": "2026-10-23",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 20.9,
+      "headroom_pct": 20.4,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 121.4048,
-      "as_of": "2026-10-16",
-      "cut_on": 126.6233,
-      "cut_off": 123.6304,
+      "value": 121.3202,
+      "as_of": "2026-10-23",
+      "cut_on": 126.6139,
+      "cut_off": 123.5769,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 4.3,
+      "headroom_pct": 4.4,
       "tier": "1차",
-      "source": "Fed H.10 JRXWTFB_N.B"
+      "source": "FRED API"
     },
     "S8_DXY_CHG": {
       "state": "inactive",
@@ -101,8 +101,8 @@
     "S6_PC_LOW": {
       "value": 0.8625,
       "as_of": "2026-10-23",
-      "cut_on": 0.8213,
-      "cut_off": 0.83,
+      "cut_on": 0.8212,
+      "cut_off": 0.8299,
       "state": "inactive",
       "since": "2026-06-18",
       "headroom_pct": 4.8,
@@ -112,9 +112,10 @@
   },
   "fetch_log": [
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-10-23",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-22",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-10-16",
-    "CBOE_TOTALPC: 원시 누적 1208관측, 이번 실행 추가 0건(시도 1)",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-10-23",
+    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
+    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-10-23",
+    "CBOE_TOTALPC: 원시 누적 1208관측, 이번 실행 추가 0건(시도 2)",
     "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-10-23"
   ],
   "primary_ok": {
@@ -131,7 +132,7 @@
       "owner": "MS"
     },
     {
-      "item": "Q3 방어 전환: 2026-10-14 사용자 통보 — 거의 미집행. 집행 여부와 범위는 2026-10-16 중간 점검에서 재결정",
+      "item": "Q3 방어 전환: 2026-10-14 사용자 통보 — 거의 미집행. 집행 여부와 범위는 10/16 중간 점검 결정안 회신 대기, 11/1 전략 재검토에서 재결정",
       "since": "2026-09-24",
       "owner": "MS"
     },
