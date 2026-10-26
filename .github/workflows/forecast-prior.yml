@@ -1,0 +1,37 @@
+name: forecast-prior
+# 정량 사전확률 산출(forecast/PREREG.md 2·3절). 데일리 브리핑(08시) 전에 기록되도록 06:41 한국시각, 평일만 실행.
+# 판정 산출(sentinel-daily)과 독립적으로 돌며, 실패해도 판정 산출에 영향을 주지 않음.
+on:
+  schedule:
+    - cron: '41 21 * * 0-4'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: forecast-prior
+  cancel-in-progress: false
+jobs:
+  prior:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TZ: Asia/Seoul
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 사전확률 산출
+        run: python engine/forecast_prior.py --forecast forecast
+      - name: 커밋(충돌 시 3회 재시도)
+        run: |
+          git config user.name  sentinel-bot
+          git config user.email sentinel-bot@users.noreply.github.com
+          git add forecast/prior.json forecast/prior_log.csv 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "prior: $(date +%F) 사전확률"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 10
+          done
+          echo "::error::사전확률 커밋 실패" && exit 1
