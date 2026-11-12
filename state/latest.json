@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-11",
+  "as_of": "2026-11-12",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 5,
@@ -50,24 +50,24 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 19.92,
-      "as_of": "2026-11-09",
+      "value": 19.46,
+      "as_of": "2026-11-10",
       "cut_on": 14.916,
       "cut_off": 15.472,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 25.1,
+      "headroom_pct": 23.4,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 19.92,
-      "as_of": "2026-11-09",
+      "value": 19.46,
+      "as_of": "2026-11-10",
       "cut_on": 23.606,
       "cut_off": 19.868,
       "state": "active",
       "since": "2026-11-08",
-      "headroom_pct": 0.3,
+      "headroom_pct": 2.1,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
@@ -99,23 +99,23 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.8885,
-      "as_of": "2026-11-09",
+      "value": 0.8945,
+      "as_of": "2026-11-10",
       "cut_on": 0.8213,
       "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 7.6,
+      "headroom_pct": 8.2,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-09",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-10",
     "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-09",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-11-06",
-    "CBOE_TOTALPC: 원시 누적 1219관측, 이번 실행 추가 0건(시도 2)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-09"
+    "CBOE_TOTALPC: 원시 누적 1220관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-10"
   ],
   "primary_ok": {
     "VIXCLS": true,
