@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-12",
+  "as_of": "2026-11-13",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
-  "count": 5,
+  "count": 4,
   "denominator": 8,
   "denominator_live": 8,
-  "stage": "거품 후기",
+  "stage": "거품 경계",
   "stage_note": "",
   "quant_active": {
-    "S4": true,
+    "S4": false,
     "S6": false,
     "S7": false,
     "S8": false
@@ -50,43 +50,43 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 19.46,
-      "as_of": "2026-11-10",
+      "value": 17.49,
+      "as_of": "2026-11-11",
       "cut_on": 14.916,
       "cut_off": 15.472,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 23.4,
+      "headroom_pct": 14.7,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 19.46,
-      "as_of": "2026-11-10",
+      "value": 17.49,
+      "as_of": "2026-11-11",
       "cut_on": 23.606,
       "cut_off": 19.868,
-      "state": "active",
-      "since": "2026-11-08",
-      "headroom_pct": 2.1,
+      "state": "inactive",
+      "since": "2026-11-13",
+      "headroom_pct": 35.0,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.34,
-      "as_of": "2026-11-09",
+      "value": 3.3,
+      "as_of": "2026-11-11",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 19.5,
+      "headroom_pct": 18.5,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
       "value": 121.8803,
       "as_of": "2026-11-06",
-      "cut_on": 126.6115,
-      "cut_off": 123.5541,
+      "cut_on": 126.6139,
+      "cut_off": 123.5558,
       "state": "inactive",
       "since": "2025-04-15",
       "headroom_pct": 3.9,
@@ -99,23 +99,23 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.8945,
-      "as_of": "2026-11-10",
+      "value": 0.8965,
+      "as_of": "2026-11-11",
       "cut_on": 0.8213,
       "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 8.2,
+      "headroom_pct": 8.4,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-10",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-09",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-11",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-11",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-11-06",
-    "CBOE_TOTALPC: 원시 누적 1220관측, 이번 실행 추가 1건(시도 3)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-10"
+    "CBOE_TOTALPC: 원시 누적 1221관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-11"
   ],
   "primary_ok": {
     "VIXCLS": true,
