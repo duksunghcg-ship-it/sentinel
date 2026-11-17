@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-17",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -50,48 +50,48 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 19.3,
-      "as_of": "2026-11-13",
-      "cut_on": 14.916,
-      "cut_off": 15.472,
+      "value": 22.91,
+      "as_of": "2026-11-16",
+      "cut_on": 14.917,
+      "cut_off": 15.484,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 22.7,
+      "headroom_pct": 34.9,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 19.3,
-      "as_of": "2026-11-13",
-      "cut_on": 23.606,
-      "cut_off": 19.812,
+      "value": 22.91,
+      "as_of": "2026-11-16",
+      "cut_on": 23.597,
+      "cut_off": 19.866,
       "state": "inactive",
       "since": "2026-11-13",
-      "headroom_pct": 22.3,
+      "headroom_pct": 3.0,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.2,
-      "as_of": "2026-11-12",
+      "value": 3.23,
+      "as_of": "2026-11-13",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 15.9,
+      "headroom_pct": 16.7,
       "tier": "1차",
       "source": "FRED API"
     },
     "S8_DXY_LVL": {
-      "value": 121.8803,
-      "as_of": "2026-11-06",
-      "cut_on": 126.621,
-      "cut_off": 123.5624,
+      "value": 122.6503,
+      "as_of": "2026-11-13",
+      "cut_on": 126.6139,
+      "cut_off": 123.5558,
       "state": "inactive",
       "since": "2025-04-15",
-      "headroom_pct": 3.9,
+      "headroom_pct": 3.2,
       "tier": "1차",
-      "source": "Fed H.10 JRXWTFB_N.B"
+      "source": "FRED API"
     },
     "S8_DXY_CHG": {
       "state": "inactive",
@@ -101,8 +101,8 @@
     "S6_PC_LOW": {
       "value": 0.8975,
       "as_of": "2026-11-13",
-      "cut_on": 0.8213,
-      "cut_off": 0.83,
+      "cut_on": 0.8212,
+      "cut_off": 0.8299,
       "state": "inactive",
       "since": "2026-06-18",
       "headroom_pct": 8.5,
@@ -111,10 +111,11 @@
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-13",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-12",
-    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-11-06",
-    "CBOE_TOTALPC: 원시 누적 1223관측, 이번 실행 추가 0건(시도 1)",
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-16",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-13",
+    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
+    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-11-13",
+    "CBOE_TOTALPC: 원시 누적 1223관측, 이번 실행 추가 0건(시도 2)",
     "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-13"
   ],
   "primary_ok": {
