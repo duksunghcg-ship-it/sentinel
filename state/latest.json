@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-17",
+  "as_of": "2026-11-18",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -50,35 +50,35 @@
   },
   "signals": {
     "S4_VIX_LOW": {
-      "value": 22.91,
-      "as_of": "2026-11-16",
+      "value": 25.46,
+      "as_of": "2026-11-17",
       "cut_on": 14.917,
       "cut_off": 15.484,
       "state": "inactive",
       "since": "2026-10-01",
-      "headroom_pct": 34.9,
+      "headroom_pct": 41.4,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S4_VIX_HIGH": {
-      "value": 22.91,
-      "as_of": "2026-11-16",
-      "cut_on": 23.597,
+      "value": 25.46,
+      "as_of": "2026-11-17",
+      "cut_on": 23.687,
       "cut_off": 19.866,
       "state": "inactive",
       "since": "2026-11-13",
-      "headroom_pct": 3.0,
+      "headroom_pct": 7.0,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.23,
-      "as_of": "2026-11-13",
+      "value": 3.34,
+      "as_of": "2026-11-16",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 16.7,
+      "headroom_pct": 19.5,
       "tier": "1차",
       "source": "FRED API"
     },
@@ -91,7 +91,7 @@
       "since": "2025-04-15",
       "headroom_pct": 3.2,
       "tier": "1차",
-      "source": "FRED API"
+      "source": "Fed H.10 JRXWTFB_N.B"
     },
     "S8_DXY_CHG": {
       "state": "inactive",
@@ -99,24 +99,23 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.8975,
-      "as_of": "2026-11-13",
-      "cut_on": 0.8212,
-      "cut_off": 0.8299,
+      "value": 0.9015,
+      "as_of": "2026-11-16",
+      "cut_on": 0.8213,
+      "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 8.5,
+      "headroom_pct": 8.9,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
-    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-16",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-13",
-    "DTWEXBGS: Fed H.10 실패 — 관측치 부족 n=0",
-    "DTWEXBGS: FRED API 취득 성공 [1차] 최신 2026-11-13",
-    "CBOE_TOTALPC: 원시 누적 1223관측, 이번 실행 추가 0건(시도 2)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-13"
+    "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-17",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-16",
+    "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-11-13",
+    "CBOE_TOTALPC: 원시 누적 1224관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-16"
   ],
   "primary_ok": {
     "VIXCLS": true,
@@ -134,14 +133,14 @@
       "default": "점검 결과가 없으면 현행 임계 유지"
     },
     {
-      "item": "S5 판정 재확인: 3Q26 분기 65건(IPO 30, SPAC 35)이 역사 분기 분포 상위 20%에 드는지 대조",
+      "item": "S5 판정 재확인: 3Q26 분기 65건(IPO 30, SPAC 35)이 역사 분기 분포 상위 20%에 드는지 대조 (Q4 정기 점검에 묶음, 2026-11-17)",
       "since": "2026-10-14",
       "owner": "MS",
-      "due": "2026-12-03",
+      "due": "2026-12-10",
       "default": "대조하지 못하면 현행 판정 유지"
     },
     {
-      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토, 단일 종목 한도 조항 신설 여부",
+      "item": "IPS 2027-01 갱신 안건: risk profile 잔여기간 정합, USD 한도 재검토, 일반 단일 종목 한도 조항 신설 여부(레버리지·인버스는 2026-11-17 묶음 상한 합산 자산 3%로 해소)",
       "since": "2026-09-24",
       "owner": "MS",
       "due": "2027-01-31",
