@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-18",
+  "as_of": "2026-11-19",
   "engine_version": "v1.5",
   "since_used": "2026-09-29",
   "count": 4,
@@ -52,8 +52,8 @@
     "S4_VIX_LOW": {
       "value": 25.46,
       "as_of": "2026-11-17",
-      "cut_on": 14.917,
-      "cut_off": 15.484,
+      "cut_on": 14.916,
+      "cut_off": 15.472,
       "state": "inactive",
       "since": "2026-10-01",
       "headroom_pct": 41.4,
@@ -63,22 +63,22 @@
     "S4_VIX_HIGH": {
       "value": 25.46,
       "as_of": "2026-11-17",
-      "cut_on": 23.687,
-      "cut_off": 19.866,
+      "cut_on": 23.606,
+      "cut_off": 19.812,
       "state": "inactive",
       "since": "2026-11-13",
-      "headroom_pct": 7.0,
+      "headroom_pct": 7.3,
       "tier": "1차",
       "source": "CBOE VIX_History"
     },
     "S7_HY_OAS": {
-      "value": 3.34,
-      "as_of": "2026-11-16",
+      "value": 3.43,
+      "as_of": "2026-11-17",
       "cut_on": 2.69,
       "cut_off": 2.76,
       "state": "inactive",
       "since": "2026-09-29",
-      "headroom_pct": 19.5,
+      "headroom_pct": 21.6,
       "tier": "1차",
       "source": "FRED API"
     },
@@ -99,23 +99,23 @@
       "expires": null
     },
     "S6_PC_LOW": {
-      "value": 0.9015,
-      "as_of": "2026-11-16",
+      "value": 0.907,
+      "as_of": "2026-11-17",
       "cut_on": 0.8213,
       "cut_off": 0.83,
       "state": "inactive",
       "since": "2026-06-18",
-      "headroom_pct": 8.9,
+      "headroom_pct": 9.4,
       "tier": "1차",
       "source": "CBOE daily P/C (MA20)"
     }
   },
   "fetch_log": [
     "VIXCLS: CBOE VIX_History 취득 성공 [1차] 최신 2026-11-17",
-    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-16",
+    "BAMLH0A0HYM2: FRED API 취득 성공 [1차] 최신 2026-11-17",
     "DTWEXBGS: Fed H.10 JRXWTFB_N.B 취득 성공 [1차] 최신 2026-11-13",
-    "CBOE_TOTALPC: 원시 누적 1224관측, 이번 실행 추가 1건(시도 3)",
-    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-16"
+    "CBOE_TOTALPC: 원시 누적 1225관측, 이번 실행 추가 1건(시도 3)",
+    "CBOE_TOTALPC_MA20: CBOE daily P/C (MA20) 취득 성공 [1차] 최신 2026-11-17"
   ],
   "primary_ok": {
     "VIXCLS": true,
